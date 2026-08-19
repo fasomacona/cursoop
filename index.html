@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso Superior de Programación | Formación Avanzada</title>
+    <meta name="description" content="Curso de programación de nivel superior. Domina algoritmos, estructuras de datos, arquitectura de software y tecnologías modernas.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #3b82f6;
+            --accent: #06b6d4;
+            --dark: #0f172a;
+            --dark-2: #1e293b;
+            --gray: #64748b;
+            --light: #f8fafc;
+            --white: #ffffff;
+            --gradient: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
+            --shadow: 0 10px 40px -10px rgba(37, 99, 235, 0.25);
+            --radius: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            color: var(--dark);
+            background: var(--light);
+            line-height: 1.6;
+        }
+
+        /* ========== NAVBAR ========== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 28px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: var(--white);
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(37, 99, 235, 0.5);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-dark {
+            background: var(--dark);
+            color: var(--white);
+        }
+
+        .btn-dark:hover {
+            background: var(--dark-2);
+            transform: translateY(-2px);
+        }
+
+        /* ========== HERO ========== */
+        .hero {
+            background: var(--dark);
+            color: var(--white);
+            padding: 160px 24px 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.25) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(37, 99, 235, 0.2);
+            border: 1px solid rgba(37, 99, 235, 0.4);
+            color: var(--accent);
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.4rem, 5vw, 3.5rem);
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero h1 span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-desc {
+            font-size: 1.15rem;
+            color: rgba(255, 255, 255, 0.75);
+            margin-bottom: 36px;
+            max-width: 520px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 48px;
+            padding-top: 32px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-item strong {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .stat-item span {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .hero-visual {
+            position: relative;
+        }
+
+        .code-window {
+            background: #0d1117;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.5);
+        }
+
+        .code-header {
+            background: #161b22;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27c93f; }
+
+        .code-title {
+            margin-left: 12px;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .code-body {
+            padding: 24px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            color: #c9d1d9;
+            overflow-x: auto;
+        }
+
+        .code-body .keyword { color: #ff7b72; }
+        .code-body .function { color: #d2a8ff; }
+        .code-body .string { color: #a5d6ff; }
+        .code-body .comment { color: #8b949e; }
+        .code-body .number { color: #79c0ff; }
+        .code-body .class { color: #ffa657; }
+
+        /* ========== SECTIONS ========== */
+        section {
+            padding: 100px 24px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 680px;
+            margin: 0 auto 64px;
+        }
+
+        .section-header .eyebrow {
+            display: inline-block;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 12px;
+        }
+
+        .section-header h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+            color: var(--dark);
+        }
+
+        .section-header p {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        /* ========== FEATURES ========== */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 28px;
+        }
+
+        .feature-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 36px 28px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow);
+            border-color: transparent;
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(6, 182, 212, 0.1));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* ========== CURRICULUM ========== */
+        .curriculum {
+            background: var(--white);
+        }
+
+        .modules {
+            display: grid;
+            gap: 20px;
+        }
+
+        .module {
+            display: grid;
+            grid-template-columns: 80px 1fr auto;
+            gap: 24px;
+            align-items: center;
+            background: var(--light);
+            border-radius: 14px;
+            padding: 28px 32px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.25s ease;
+        }
+
+        .module:hover {
+            border-color: var(--primary-light);
+            box-shadow: 0 8px 30px -10px rgba(37, 99, 235, 0.2);
+        }
+
+        .module-num {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .module-info h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .module-info p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .module-hours {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 6px 14px;
+            border-radius: 50px;
+            white-space: nowrap;
+        }
+
+        /* ========== TECH STACK ========== */
+        .tech-stack {
+            background: var(--dark);
+            color: var(--white);
+        }
+
+        .tech-stack .section-header h2 {
+            color: var(--white);
+        }
+
+        .tech-stack .section-header p {
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        .tech-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .tech-badge {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.25s;
+        }
+
+        .tech-badge:hover {
+            background: rgba(37, 99, 235, 0.25);
+            border-color: var(--primary-light);
+            transform: translateY(-3px);
+        }
+
+        /* ========== CTA ========== */
+        .cta {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: var(--white);
+            text-align: center;
+            padding: 100px 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.2) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 640px;
+            margin: 0 auto;
+        }
+
+        .cta h2 {
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .cta p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.15rem;
+            margin-bottom: 36px;
+        }
+
+        .cta-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ========== FOOTER ========== */
+        footer {
+            background: #020617;
+            color: rgba(255, 255, 255, 0.6);
+            padding: 48px 24px 32px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        footer .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        footer .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 500;
+        }
+
+        footer .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 900px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-desc {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-actions {
+                justify-content: center;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .hero-visual {
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .module {
+                grid-template-columns: 60px 1fr;
+                gap: 16px;
+            }
+
+            .module-hours {
+                grid-column: 2;
+                justify-self: start;
+                margin-top: 4px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero {
+                padding: 130px 20px 70px;
+            }
+
+            section {
+                padding: 70px 20px;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 20px;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">{ }</div>
+                CodeMaster Pro
+            </a>
+            <ul class="nav-links">
+                <li><a href="#sobre">Sobre el curso</a></li>
+                <li><a href="#temario">Temario</a></li>
+                <li><a href="#tecnologias">Tecnologías</a></li>
+                <li><a href="#inscripcion">Inscripción</a></li>
+            </ul>
+            <a href="#inscripcion" class="btn btn-primary">Inscribirme</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span>🚀</span> Nivel Superior · Formación Profesional
+                </div>
+                <h1>Domina la <span>Programación Avanzada</span> desde cero hasta experto</h1>
+                <p class="hero-desc">
+                    Un programa intensivo de nivel universitario diseñado para convertir programadores en arquitectos de software capaces de construir sistemas escalables, robustos y de alto rendimiento.
+                </p>
+                <div class="hero-actions">
+                    <a href="#inscripcion" class="btn btn-primary">Comenzar ahora</a>
+                    <a href="#temario" class="btn btn-outline">Ver temario</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <strong>180h</strong>
+                        <span>Horas de formación</span>
+                    </div>
+                    <div class="stat-item">
+                        <strong>12</strong>
+                        <span>Módulos avanzados</span>
+                    </div>
+                    <div class="stat-item">
+                        <strong>98%</strong>
+                        <span>Tasa de empleabilidad</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="code-window">
+                    <div class="code-header">
+                        <div class="dot dot-red"></div>
+                        <div class="dot dot-yellow"></div>
+                        <div class="dot dot-green"></div>
+                        <span class="code-title">algoritmos.ts</span>
+                    </div>
+                    <pre class="code-body"><span class="comment">// Optimización de búsqueda binaria</span>
+<span class="keyword">function</span> <span class="function">binarySearch</span>&lt;T&gt;(
+  arr: T[], 
+  target: T, 
+  compare: (a: T, b: T) =&gt; <span class="class">number</span>
+): <span class="class">number</span> {
+  <span class="keyword">let</span> left = <span class="number">0</span>, right = arr.length - <span class="number">1</span>;
+  
+  <span class="keyword">while</span> (left &lt;= right) {
+    <span class="keyword">const</span> mid = (left + right) &gt;&gt;&gt; <span class="number">1</span>;
+    <span class="keyword">const</span> cmp = compare(arr[mid], target);
+    
+    <span class="keyword">if</span> (cmp === <span class="number">0</span>) <span class="keyword">return</span> mid;
+    <span class="keyword">if</span> (cmp &lt; <span class="number">0</span>) left = mid + <span class="number">1</span>;
+    <span class="keyword">else</span> right = mid - <span class="number">1</span>;
+  }
+  <span class="keyword">return</span> -<span class="number">1</span>; <span class="comment">// No encontrado</span>
+}</pre>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- SOBRE EL CURSO -->
+    <section id="sobre">
+        <div class="container">
+            <div class="section-header">
+                <span class="eyebrow">¿Por qué este curso?</span>
+                <h2>Formación de élite para profesionales exigentes</h2>
+                <p>No es un curso más de programación. Es un programa estructurado con rigor académico y enfoque práctico orientado a la industria.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3>Pensamiento computacional</h3>
+                    <p>Desarrolla la capacidad de analizar problemas complejos y diseñar soluciones eficientes con algoritmos óptimos.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏗️</div>
+                    <h3>Arquitectura de software</h3>
+                    <p>Aprende a diseñar sistemas escalables, mantenibles y seguros siguiendo principios SOLID y patrones de diseño.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Alto rendimiento</h3>
+                    <p>Domina técnicas de optimización, concurrencia, paralelismo y gestión eficiente de memoria.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Calidad y seguridad</h3>
+                    <p>Implementa testing avanzado, CI/CD, análisis estático y buenas prácticas de seguridad en el código.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3>Sistemas distribuidos</h3>
+                    <p>Construye aplicaciones cloud-native, microservicios y sistemas tolerantes a fallos.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Proyectos reales</h3>
+                    <p>Aplica todo lo aprendido en proyectos de nivel profesional que podrás mostrar en tu portfolio.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TEMARIO -->
+    <section id="temario" class="curriculum">
+        <div class="container">
+            <div class="section-header">
+                <span class="eyebrow">Temario completo</span>
+                <h2>12 módulos de profundidad técnica</h2>
+                <p>Un recorrido progresivo desde los fundamentos sólidos hasta las tecnologías más demandadas del mercado.</p>
+            </div>
+
+            <div class="modules">
+                <div class="module">
+                    <div class="module-num">01</div>
+                    <div class="module-info">
+                        <h3>Fundamentos avanzados y estructuras de datos</h3>
+                        <p>Complejidad algorítmica, árboles, grafos, heaps, hash tables y estructuras especializadas.</p>
+                    </div>
+                    <span class="module-hours">18h</span>
+                </div>
+                <div class="module">
+                    <div class="module-num">02</div>
+                    <div class="module-info">
+                        <h3>Algoritmos de optimización</h3>
+                        <p>Programación dinámica, algoritmos greedy, backtracking y técnicas de divide y vencerás.</p>
+                    </div>
+                    <span class="module-hours">16h</span>
+                </div>
+                <div class="module">
+                    <div class="module-num">03</div>
+                    <div class="module-info">
+                        <h3>Programación orientada a objetos avanzada</h3>
+                        <p>Principios SOLID, composición vs herencia, interfaces, genéricos y metaprogramación.</p>
+                    </div>
+                    <span class="module-hours">14h</span>
+                </div>
+                <div class="module">
+                    <div class="module-num">04</div>
+                    <div class="module-info">
+                        <h3>Patrones de diseño y arquitectura</h3>
+                        <p>Patrones creacionales, estructurales y de comportamiento. Clean Architecture y Hexagonal.</p>
+                    </div>
+                    <span class="module-hours">16h</span>
+                </div>
+                <div class="module">
+                    <div class="module-num">05</div>
+                    <div class="module-info">
+                        <h3>Concurrencia y paralelismo</h3>
+                        <p>Hilos, async/await, promesas, actores, locks, condiciones de carrera y memory models.</p>
+                    </div>
+                    <span class="module-hours">15h</span>
+                </div>
+                <div class="module">
+                    <div class="module-num">06</div>
+                    <div class="module-info">
+                        <h3>Bases de datos y persistencia</h3>
+                        <p>SQL avanzado, NoSQL, ORMs, transacciones, índices, replicación y sharding.</p>
+                    </div>
+                    <span class="module-hours">14h</span>
+                </div>
+                <div class="module">
+                    <div class="module-num">07</div>
+                    <div class="module-info">
+                        <h3>APIs y comunicación entre servicios</h3>
+                        <p>REST, GraphQL, gRPC, WebSockets, message brokers y event-driven architecture.</p>
+                    </div>
+                    <span class="module-hours">14h</span>
+                </div>
+                <div class="module">
+                    <div class="module-num">08</div>
+                    <div class="module-info">
+                        <h3>Testing y calidad de código</h3>
+                        <p>Unit, integration, e2e, TDD, BDD, mocks, coverage y análisis estático.</p>
+                    </div>
+                    <span class="module-hours">12h</span>
+                </div>
+                <div class="module">
+                    <div class="module-num">09</div>
+                    <div class="module-info">
+                        <h3>DevOps y despliegue continuo</h3>
+                        <p>Docker, Kubernetes, CI/CD, infraestructura como código y monitoring.</p>
+                    </div>
+                    <span class="module-hours">14h</span>
+                </div>
+                <div class="module">
+                    <div class="module-num">10</div>
+                    <div class="module-info">
+                        <h3>Seguridad en aplicaciones</h3>
+                        <p>OWASP Top 10, autenticación, autorización, cifrado y auditoría de seguridad.</p>
+                    </div>
+                    <span class="module-hours">12h</span>
+                </div>
+                <div class="module">
+                    <div class="module-num">11</div>
+                    <div class="module-info">
+                        <h3>Sistemas distribuidos y cloud</h3>
+                        <p>CAP theorem, consistencia eventual, microservicios, serverless y cloud providers.</p>
+                    </div>
+                    <span class="module-hours">16h</span>
+                </div>
+                <div class="module">
+                    <div class="module-num">12</div>
+                    <div class="module-info">
+                        <h3>Proyecto final integrador</h3>
+                        <p>Desarrollo de un sistema completo de principio a fin con todas las tecnologías del curso.</p>
+                    </div>
+                    <span class="module-hours">20h</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TECNOLOGÍAS -->
+    <section id="tecnologias" class="tech-stack">
+        <div class="container">
+            <div class="section-header">
+                <span class="eyebrow" style="color: var(--accent);">Stack tecnológico</span>
+                <h2>Herramientas que dominarás</h2>
+                <p>Trabajarás con las tecnologías más demandadas por las empresas tecnológicas líderes.</p>
+            </div>
+
+            <div class="tech-grid">
+                <div class="tech-badge">TypeScript</div>
+                <div class="tech-badge">Python</div>
+                <div class="tech-badge">Go</div>
+                <div class="tech-badge">Rust</div>
+                <div class="tech-badge">Node.js</div>
+                <div class="tech-badge">PostgreSQL</div>
+                <div class="tech-badge">Redis</div>
+                <div class="tech-badge">Docker</div>
+                <div class="tech-badge">Kubernetes</div>
+                <div class="tech-badge">AWS / GCP</div>
+                <div class="tech-badge">GraphQL</div>
+                <div class="tech-badge">gRPC</div>
+                <div class="tech-badge">Kafka</div>
+                <div class="tech-badge">Terraform</div>
+                <div class="tech-badge">GitHub Actions</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="inscripcion" class="cta">
+        <div class="cta-content">
+            <h2>¿Listo para dar el salto al siguiente nivel?</h2>
+            <p>Únete a una comunidad de profesionales que están transformando su carrera con formación de alto nivel. Plazas limitadas.</p>
+            <div class="cta-actions">
+                <a href="#" class="btn btn-primary">Solicitar plaza</a>
+                <a href="#" class="btn btn-outline">Descargar temario PDF</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-links">
+            <a href="#sobre">Sobre el curso</a>
+            <a href="#temario">Temario</a>
+            <a href="#tecnologias">Tecnologías</a>
+            <a href="#inscripcion">Inscripción</a>
+        </div>
+        <p>© 2026 CodeMaster Pro — Curso Superior de Programación. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>
